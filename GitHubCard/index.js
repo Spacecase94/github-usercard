@@ -1,7 +1,17 @@
-/* Step 1: using axios, send a GET request to the following URL 
+/* Step 1: using axios, send a GET request to the following URL
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+
+function getData() {
+  axios
+      .get('https://api.github.com/users/Spacecase94')
+      .then(res => res.data)
+      .catch(err => console.error(err));
+}
+
+
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -46,6 +56,68 @@ const followersArray = [];
 
 */
 
+const cardComponent = (obj) => {
+
+
+  // create card container div
+  const card = document.createElement('div');
+  card.classList = 'card';
+
+  // select the cards class and append the card div to it
+  const cards = document.querySelector('.cards');
+  cards.appendChild(card);
+
+  // create img tag and set avatar image url
+  const avatar = document.createElement('img');
+  avatar.src = ``;
+  card.appendChild(avatar);
+
+  // create card info div
+  const cardInfo = document.createElement('div');
+  cardInfo.classList = 'card-info';
+  card.appendChild(cardInfo);
+
+  // create name heading element
+  const name = document.createElement('h3');
+  name.classList = 'name';
+  card.appendChild(name);
+
+  // create username element
+  const userName = document.createElement('p');
+  userName.classList = 'username';
+  card.appendChild(userName);
+
+  // create location element
+  const location = document.createElement('p');
+  location.textContent =`Location: `;
+  card.appendChild(location);
+
+  // create profile element with link to users github page
+  const profile = document.createElement('p');
+  profile.textContent = 'Profile: ';
+  card.appendChild(profile);
+
+  const profileLink = document.createElement('a');
+  profileLink.href = '';
+  profile.appendChild(profileLink);
+
+  // create followers element with followers count
+  const followers = document.createElement('p');
+  followers.textContent = 'Followers: ';
+  card.appendChild(followers);
+
+  // create following element with following count
+  const following = document.createElement('p');
+  following.textContent = 'Following: ';
+  card.appendChild(following);
+
+  // create bio element
+  const bio = document.createElement('p');
+  bio.textContent = 'Bio: ';
+  card.appendChild(bio);
+};
+getData();
+cardComponent();
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
