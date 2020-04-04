@@ -3,10 +3,16 @@
            https://api.github.com/users/<your name>
 */
 
+
+
 function getData() {
+  const cards = document.querySelector('.cards');
   axios
       .get('https://api.github.com/users/Spacecase94')
-      .then(res => res.data)
+      .then(res => {
+        // console.log(res.data);
+          cards.appendChild(cardComponent(res.data));
+      })
       .catch(err => console.error(err));
 }
 
@@ -20,7 +26,7 @@ function getData() {
    Skip to Step 3.
 */
 
-/* Step 4: Pass the data received from Github into your function, 
+/* Step 4: Pass the data received from Github into your function,
            create a new component and add it to the DOM as a child of .cards
 */
 
@@ -64,12 +70,12 @@ const cardComponent = (obj) => {
   card.classList = 'card';
 
   // select the cards class and append the card div to it
-  const cards = document.querySelector('.cards');
-  cards.appendChild(card);
+  // const cards = document.querySelector('.cards');
+  // cards.appendChild(card);
 
   // create img tag and set avatar image url
   const avatar = document.createElement('img');
-  avatar.src = ``;
+  avatar.src = `${obj.avatar_url}`;
   card.appendChild(avatar);
 
   // create card info div
@@ -89,35 +95,39 @@ const cardComponent = (obj) => {
 
   // create location element
   const location = document.createElement('p');
-  location.textContent =`Location: `;
+  location.textContent =`Location: ${obj.location}`;
   card.appendChild(location);
 
   // create profile element with link to users github page
   const profile = document.createElement('p');
-  profile.textContent = 'Profile: ';
+  profile.textContent = `Profile:`;
   card.appendChild(profile);
 
   const profileLink = document.createElement('a');
-  profileLink.href = '';
+  profileLink.textContent = ` ${obj.name}`
+  profileLink.href = `${obj.html_url}`;
   profile.appendChild(profileLink);
 
   // create followers element with followers count
   const followers = document.createElement('p');
-  followers.textContent = 'Followers: ';
+  followers.textContent = `Followers: ${obj.followers}`;
   card.appendChild(followers);
 
   // create following element with following count
   const following = document.createElement('p');
-  following.textContent = 'Following: ';
+  following.textContent = `Following: ${obj.following}`;
   card.appendChild(following);
 
   // create bio element
   const bio = document.createElement('p');
-  bio.textContent = 'Bio: ';
+  bio.textContent = `Bio: ${obj.bio}`;
   card.appendChild(bio);
+
+  return card;
 };
 getData();
 cardComponent();
+console.log(followersArray);
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
