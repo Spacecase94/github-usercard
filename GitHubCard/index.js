@@ -3,23 +3,7 @@
            https://api.github.com/users/<your name>
 */
 
-
-
-function getData() {
-  const cards = document.querySelector('.cards');
-  axios
-      .get('https://api.github.com/users/Spacecase94')
-      .then(res => {
-        // console.log(res.data);
-          cards.appendChild(cardComponent(res.data));
-      })
-      .catch(err => console.error(err));
-}
-
-
-
-
-/* Step 2: Inspect and study the data coming back, this is YOUR 
+/* Step 2: Inspect and study the data coming back, this is YOUR
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
 
@@ -40,7 +24,7 @@ function getData() {
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -62,16 +46,33 @@ const followersArray = [];
 
 */
 
+const followersArray = [
+  'Spacecase94',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
+
+function getData() {
+  const cards = document.querySelector('.cards');
+  for (let i = 0; i < followersArray.length; i++) {
+    axios
+        .get(`https://api.github.com/users/${followersArray[i]}`)
+        .then(res => {
+          cards.appendChild(cardComponent(res.data));
+        })
+        .catch(err => console.error(err));
+  }
+}
+
 const cardComponent = (obj) => {
 
 
   // create card container div
   const card = document.createElement('div');
   card.classList = 'card';
-
-  // select the cards class and append the card div to it
-  // const cards = document.querySelector('.cards');
-  // cards.appendChild(card);
 
   // create img tag and set avatar image url
   const avatar = document.createElement('img');
@@ -125,9 +126,10 @@ const cardComponent = (obj) => {
 
   return card;
 };
+
 getData();
-cardComponent();
-console.log(followersArray);
+
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
