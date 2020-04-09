@@ -57,15 +57,30 @@ const followersArray = [
 
 function getData() {
   const cards = document.querySelector('.cards');
-  for (let i = 0; i < followersArray.length; i++) {
+  // for (let i = 0; i < followersArray.length; i++) {
     axios
-        .get(`https://api.github.com/users/${followersArray[i]}`)
+        .get(`https://api.github.com/users/Spacecase94`)
         .then(res => {
+          console.log(res.data)
           cards.appendChild(cardComponent(res.data));
+          followerData();
         })
         .catch(err => console.error(err));
-  }
+  // }
 }
+
+const followerData = () => {
+  const cards = document.querySelector('.cards');
+  axios
+      .get(`https://api.github.com/users/Spacecase94/followers`)
+      .then(res => {
+        res.data.forEach(item => {
+          console.log(item)
+          cards.appendChild(followersCardComponent(item));
+        });
+      })
+      .catch(err => console.error(err));
+};
 
 const cardComponent = (obj) => {
 
@@ -92,6 +107,7 @@ const cardComponent = (obj) => {
   // create username element
   const userName = document.createElement('p');
   userName.classList = 'username';
+  userName.textContent = `UserName: ${obj.login}`
   card.appendChild(userName);
 
   // create location element
@@ -127,6 +143,48 @@ const cardComponent = (obj) => {
   return card;
 };
 
+const followersCardComponent = (obj) => {
+
+
+  // create card container div
+  const card = document.createElement('div');
+  card.classList = 'card';
+
+  // create img tag and set avatar image url
+  const avatar = document.createElement('img');
+  avatar.src = `${obj.avatar_url}`;
+  card.appendChild(avatar);
+
+  // create card info div
+  const cardInfo = document.createElement('div');
+  cardInfo.classList = 'card-info';
+  card.appendChild(cardInfo);
+
+  // create name heading element
+  const name = document.createElement('h3');
+  name.classList = 'name';
+  card.appendChild(name);
+
+  // create username element
+  const userName = document.createElement('p');
+  userName.classList = 'username';
+  userName.textContent = `UserName: ${obj.login}`
+  card.appendChild(userName);
+
+  // create profile element with link to users github page
+  const profile = document.createElement('p');
+  profile.textContent = `Profile:`;
+  card.appendChild(profile);
+
+  const profileLink = document.createElement('a');
+  profileLink.textContent = ` ${obj.login}`
+  profileLink.href = `${obj.url}`;
+  profile.appendChild(profileLink);
+
+
+
+  return card;
+};
 getData();
 
 
